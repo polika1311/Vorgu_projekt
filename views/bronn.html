@@ -1,19 +1,30 @@
-<div id="login">
-	<form action="?page=bronn" method="POST" >
-	<div id="content">
-					
-						<input type="text" name="nimi"  /> nimi <br/>
-						
-						<input type="number" name="vanus" /> vanus<br/>
-						
-						Sugu: <br/>
-						<label><input type="radio" name="sugu" value="m" /> M</label><br/>
-						<label><input type="radio" name="sugu" value="n" /> N</label><br/>
-						
-						<input type="text" name="kood" /> Kood<br/>
-						<textarea name="komm"></textarea><br/>
-						<input type="submit" value="registreeru"/>
-					</form>
-					
-								</div>
+		<div id="wrap">
+		<form action ="?page=lisa" method ="POST" enctype="multipart/form-data">
+		<input type="text" name="nimi" placeholder="nimi" value="<?php if (isset($loom['nimi'])) echo htmlspecialchars($loom['nimi']); ?>"/><br/>
+	<input type="number" name="puur" placeholder="puur" value="<?php if (isset($loom['puur'])) echo htmlspecialchars($loom['puur']); ?>"/><br/>
+		<input type="text" name="nimi" <?php if (!empty($_POST["nimi"]))
+echo "value =\" ".htmlspecialchars($_POST["nimi"])."\" "; ?> />Nimi<br/>
+		Sugu:<br/>
+		<label><input type ="radio" name="sugu" value="m" <?php if (!empty($_POST["sugu"]) && $_POST ["sugu"]=="m")
+		echo "checked"; ?>/> M </label><br/>
+		<label><input type ="radio" name="sugu" value="n"<?php if (!empty($_POST["sugu"]) && $_POST ["sugu"]=="n")
+		echo "checked"; ?>/>N</label><br/>
 		
+	    <input type="number" name="vanus"  <?php if (!empty($_POST["vanus"]) && is_numeric ($_POST["vanus"]))
+		echo "value =\" ".htmlspecialchars($_POST["vanus"])."\" "; ?> 
+		/>Vanus<br/>
+	    <input type="text" name="kood"<?php if (!empty($_POST["kood"]))
+		echo "value =\" ".htmlspecialchars($_POST["kood"])."\" "; ?> />Kood<br/>
+	    <textarea name="komm"><?php if (!empty($_POST["komm"]))
+		echo htmlspecialchars($_POST["komm"]); ?> </textarea>
+	<input type="submit"  value="registreeru"/>
+	</form>
+	</div>
+	
+	<?php if (isset($errors)):?>
+		<?php foreach($errors as $error):?>
+			<div style="color:red;"><?php echo htmlspecialchars($error); ?></div>
+		<?php endforeach;?>
+	<?php endif;?>
+		</div>
+	

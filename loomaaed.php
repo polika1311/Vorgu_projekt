@@ -20,7 +20,9 @@ switch($page){
 	case "bronn":
 		lisa();
 	break;
-	
+	case "lisa":
+		lisa();
+	break;
 	case "logout":
 		logout();
 	break;

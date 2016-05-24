@@ -3,11 +3,12 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Autopesula</title>
-	<link rel="stylesheet" type="text/css" href="stiil.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div id="wrap">
-	<ul id="menu">
+
+<div id ="header">
+<ul id ="menu">
 		<li><a href="?">Pealeht</a></li>
 		<?php if(isset($_SESSION['user'])): ?>
 			<li><a href="?page=bronn">Broneeringud</a></li>
@@ -24,7 +25,13 @@
 		<?php endif; ?>
 			
 		
+			</ul>
+			</div>
 			
-			
-	</ul>
+		
+<div id = "banner">
+		<img src = "pildid/banner.jpg" alt ="banner">
+		</div>
+
 	<div id="content">
+	

@@ -1,18 +1,6 @@
-#sisse {
-	
-display: inline-block;
-	width: 100%;
-	padding:235px 0px;
-	text-align: center;
-	text-decoration: none;
-	color: gold;
-	font-weight: bold;
-	font-size: 30px;
-	text-shadow:0px 0px 10px black;
-}
-
+<style>
 body {
-	background: skyblue;
+	background: black;
 	margin:0px;
 }
 #wrap{
@@ -20,11 +8,12 @@ body {
 	background: white;
 	margin: auto;
 	overflow: auto;
-	min-height:600px;
+	min-height:400px;
 }
+
 #menu {
 	list-style: none;
-	background: PaleGreen;
+	background: blue;
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
@@ -49,20 +38,9 @@ body {
 	width: 35%;	
 	margin-top:25%;
 }
-.puur {
-	border: dashed grey 2px;
-	margin:20px;
-	float:left;
-	width: 40%;
-	padding:10px;
-}
-.puur img {
-	height: 50px;
 
-}
-.puur h5 {
-	margin: 0px;
-}
-.clear {
-	clear:both;
-}
+#banner img {
+	
+
+	text-align: center; width: 800px;}
+	</style>

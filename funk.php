@@ -85,7 +85,7 @@ function kuva_puurid(){
 			$puurid[$r['puur']][]=$row;
 		}
 	}
-	include_once('views/puurid.html');
+	include_once('views/puurid.html');//tulemus.html
 	
 	
 }
@@ -172,7 +172,7 @@ function lisa(){
 			
 			if ($result>0){
 				if (mysqli_insert_id($connection) > 0) {
-					header("Location: ?page=pealeht");
+					header("Location: ?page=tulemus");//nagu puurid
 				}else {
 					header("Location: ?page=bronn");
 					
