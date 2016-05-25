@@ -48,12 +48,12 @@ function reg(){
 	}
 	include("views/registreeri.html");
 }
-function hangi_loom($id){
+function hangi_user($id){
  global $connection;
  $tulemused = array();
  
  $vaartus = mysqli_real_escape_string($connection, $id);
- 	$sql ="SELECT nimi, vanus, liik, PUUR FROM polina1311_loomaaed WHERE id='$id'";
+ 	$sql ="SELECT autonumber, email, pesu, date, aeg  FROM pppopova_kliendid WHERE id=id";
  	$result = mysqli_query($connection, $sql) or die("Sellist looma baasis pole
  	");
  
@@ -66,26 +66,28 @@ function hangi_loom($id){
    
 
 
-function kuva_puurid(){
-	// siia on vaja funktsionaalsust
-	//Kontrollida, kas kasutaja on sisse logitud. Kui pole, suunata sisselogimise vaatesse
+function kuva_info(){
 	if (empty($_SESSION['user'])) {
 		header("Location: ?page=login");
 	}
 	
 	global $connection;
-	$puurid=array();
+	$kliendid=array();
+
 	
-	$p= mysqli_query($connection, "SELECT DISTINCT puur FROM polina1311_loomaaed");
-	
-	while ($r=mysqli_fetch_assoc($p)){
-		$sql2 = "select * from polina1311_loomaaed WHERE puur = {$r['puur']}";
-      $result2 = mysqli_query($connection, $sql2) or die("$sql2 - ".mysqli_error($connection));
-		while ($row=mysqli_fetch_assoc($result2)) {
-			$puurid[$r['puur']][]=$row;
-		}
-	}
-	include_once('views/puurid.html');//tulemus.html
+    $sql = "SELECT * FROM ppopova_kliendid ORDER BY ID DESC LIMIT 1";
+
+    $result = mysqli_query($connection, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $kliendid=$row;
+
+    $nimi=$row['kliendi_nimi'];
+    $auto = $row['autonumber'];
+    $email = $row['email'];
+    $pesu = $row['pesu'];
+    $date = $row['date'];
+
+	include_once('views/tulemus.html');//tulemus.html
 	
 	
 }
@@ -96,7 +98,7 @@ function logi(){
 	// siia on vaja funktsionaalsust (13. nädalal)
 	
 	if (isset($_SESSION['user'])) {
-		header ('Location:?page=loomad');
+		header ('Location:?page=bronn');
 	}else {
 		
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -142,8 +144,7 @@ function logout(){
 }
 
 function lisa(){
-	// siia on vaja funktsionaalsust (13. nädalal)
-	//Kontrollib, kas kasutaja on sisse logitud. Kui pole, suunab sisselogimise vaatesse
+
 	if (empty($_SESSION['user'])) {
 		header("Location: ?page=login");
 	}else {
@@ -153,26 +154,37 @@ function lisa(){
 		//kui meetodiks oli POST, tuleb kontrollida, kas kõik vormiväljad olid täidetud ja tekitada vajadusel vastavaid veateateid (massiiv $errors).
 		$errors = array();
 		if (empty($_POST['nimi'])) {
-			$errors[] = "Nimi sisestamata!";
+			$errors[] = "Palun sisetage oma nimi!";
 		}
-		if (empty($_POST['puur'])) {
-			$errors[] = "Puur sisestamata!";
+		if (empty($_POST['auto'])) {
+			$errors[] = "Palun sisetage autonumber!";
 		}
-		$pilt = upload("liik");
-		if ($pilt == "") {
-			$errors[] = "Liik sisestamata!";
+		if (empty($_POST['email'])) {
+			$errors[] = "Palun sisetage oma e-mail!";
+		}
+		if (empty($_POST['date'])) {
+			$errors[] = "Palun valige sobiva kuupäeva";
+		}
+		if (empty($_POST['teenus'])) {
+			$errors[] = "Palun valige teenus";
 		}
 		if (empty($errors)) {
 			global $connection;
-			$nimi = mysqli_real_escape_string($connection, $_POST["nimi"]);
-			$puur = mysqli_real_escape_string($connection, $_POST["puur"]);
+			$nimi = mysqli_real_escape_string($connection, $_POST['nimi']);
+			$auto = mysqli_real_escape_string($connection, $_POST['auto']);
+			$email = mysqli_real_escape_string($connection, $_POST['email']);
+			$teenus = mysqli_real_escape_string($connection, $_POST['teenus']);
+			$date = mysqli_real_escape_string($connection, $_POST['date']);
+			$time = mysqli_real_escape_string($connection, $_POST['aeg']);
+			$comment = mysqli_real_escape_string($connection, $_POST['comment']);
 			
-			$sql = "INSERT INTO polina1311_loomaaed (nimi, puur, liik) VALUES ('$nimi', '$puur', '$pilt')";
+			$sql = "INSERT INTO ppopova_kliendid (kliendi_nimi, autonumber, email, pesu, date, aeg, comment) VALUES ('$nimi', '$auto', '$email','$teenus',
+			 '$date', '$time','$comment')";
 			$result = mysqli_query($connection, $sql) or die("Looma lisamine ebaõnnestus");
 			
 			if ($result>0){
 				if (mysqli_insert_id($connection) > 0) {
-					header("Location: ?page=tulemus");//nagu puurid
+					header("Location: ?page=result");//nagu puurid
 				}else {
 					header("Location: ?page=bronn");
 					

@@ -23,6 +23,9 @@ switch($page){
 	case "lisa":
 		lisa();
 	break;
+	case "result":
+		kuva_info();
+	break;
 	case "logout":
 		logout();
 	break;
