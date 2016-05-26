@@ -26,12 +26,15 @@ switch($page){
 	case "result":
 		kuva_info();
 	break;
+	case "halda":
+		kuva_all();
+	break;
 	case "logout":
 		logout();
 	break;
 	
 	default:
-		include_once('views/v2rav.html');
+		include_once('views/open.html');
 	break;
 }
 
