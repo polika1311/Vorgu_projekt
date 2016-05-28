@@ -1,17 +1,29 @@
+﻿<body onload="myFunction()">
+
+<script>
+function myFunction() {
+    alert("Teie konto turvalisuse huvides klõpsa kindlasti töö lõpetades linki Logi välja, mis asub kodulehel vasakus ääres.");
+}
+</script>
 <div id="wrap">
-<?php foreach($kliendid as $i=>$klient): ?>
-		Kliendi id: <?php echo $kliendid [$i]['id'];?>
-		Kliendi nimi: <?php echo $kliendid [$i]['kliendi_nimi'];?>
-		Auto number: <?php echo $kliendid [$i]['autonumber'];?>
-		Tellitud teenus: <?php echo $kliendid [$i]['pesu'];?>
-		</br>
+
+<?php if($_SESSION['user'] == 'admin'): ?>
+<h4> See on admini vaade broneeringute haldamiseks. Admini õigused antakse autopesula juhatajale, kes saab tööd planeerida vastavalt klientide broneeringutele. Admin võib vajadusel  broneeringuid muuta. Andmed saab kuvada sõltuvalt tellija(autopseula juhataja) soovidest. 
+Praegu andmed grupeeritud kuupäeva järgi.</h4>
+<?php foreach($kliendid as $id=>$klient): ?>
+ <table border="2" style="width:100%">
+  <tr>
+  <tr>Kliendi vaade</tr>
+    <td><a href="?page=muuda&id=<?php echo $kliendid [$id]['id']; ?>" > Kliendi id:=<?php echo $kliendid [$id]['id']; ?> </a></td>
+    <td>Kliendi nimi: <?php echo $kliendid [$id]['kliendi_nimi'];?></td>
+    <td>Autonumber: <?php echo $kliendid [$id]['autonumber'];?></td>
+    <td>Kliendi e-mail: <?php echo $kliendid [$id]['email'];?></td>
+    <td> Kuupäev: <?php echo $kliendid [$id]['date'];?></td>
+    <td> Tellitud teenus: <?php echo $kliendid [$id]['pesu'];?></td>
+     <td> Valitud aeg: <?php echo $kliendid [$id]['aeg'];?></td>
+  </tr>
+</table> 
 		 <?php endforeach; ?>
-	
-
-			
-			 <?php if($_SESSION['user'] == 'admin'): ?>
-
-				<a href="?page=muuda&id=<?php echo $klient['id']; ?>" > id=<?php echo $kliendid [$i]['id']; ?> </a>
 				 <?php endif;?>
 				
 				 

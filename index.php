@@ -26,6 +26,9 @@ switch($page){
 	case "result":
 		kuva_info();
 	break;
+	case "muuda":
+		muuda();
+	break;
 	case "halda":
 		kuva_all();
 	break;

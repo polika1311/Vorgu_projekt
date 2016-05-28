@@ -50,19 +50,18 @@ function reg(){
 }
 function hangi_user($id){
  global $connection;
- $tulemused = array();
- 
- $vaartus = mysqli_real_escape_string($connection, $id);
- 	$sql ="SELECT kliendi_nimi, autonumber, email, pesu, date,   FROM pppopova_kliendid WHERE id='$id'";
- 	$result = mysqli_query($connection, $sql) or die("Sellist looma baasis pole
- 	");
- 
- while($r = mysqli_fetch_assoc($result)){
- 	$tulemused=$r;
- }
-  		  
-  return $tulemused;
-  }		 
+$vaartus = mysqli_real_escape_string($connection, $id);
+ 	$sql ="SELECT * FROM ppopova_kliendid WHERE id='$id'";
+ 	$result = mysqli_query($connection, $sql)or die("Ei saanud looma kätte");
+ 	$looma_andmed=array();
+ 	while($rida = mysqli_fetch_assoc($result)) {
+		 $looma_andmed=$rida;
+	}
+	
+	return $looma_andmed;
+}
+  
+  		 
    
 
 
@@ -100,7 +99,7 @@ function kuva_all(){
 	$kliendid=array();
 
 	
-    $sql = "SELECT id, kliendi_nimi,autonumber, pesu FROM ppopova_kliendid";
+    $sql = "SELECT id, kliendi_nimi,autonumber, email, date, pesu, aeg FROM ppopova_kliendid ORDER BY date ASC";
 
     $result = mysqli_query($connection, $sql);
     if (mysqli_num_rows($result) > 0) {
@@ -109,6 +108,8 @@ function kuva_all(){
 	    $kliendid []=$row;
 	    
 
+        echo "Auto: " . $row["date"]. " - Name: " . $row["kliendi_nimi"]. " " . $row["pesu"]. "<br>";
+    
     }
     
 } else {
@@ -141,6 +142,9 @@ function logi(){
 				$errors[] = "Parool puudu!";
 			}
 			
+			
+			
+			
 			if (empty($errors)) {
 				global $connection;
 			$kasutaja = mysqli_real_escape_string($connection,($_POST['user']));
@@ -162,12 +166,15 @@ function logi(){
 		if (isset ($_SESSION ['user']) && $_SESSION['user']=='admin') {
 		header("Location: ?page=halda");
 	}
+	
+	
 				
 			} 
 		}
 	
 }
 	include_once('views/login.html');
+	echo "Vale parool või kasutajatunnus";
 }
 
 function logout(){
@@ -234,52 +241,60 @@ function lisa(){
 
 
 function muuda(){
+	
+	
 	global $connection;
 	if (empty($_SESSION['user'])) {
 		header("Location: ?page=login");
-	}else {
-		if ($_SESSION ['roll']=='admin') 	{
-	if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
-		if ($_POST["id"]== ''){
-		header("Location:?page=loomad");
 	}else{
-		$vaartus=hangi_loom($_POST["id"]);
-		$vaartus1=$_POST["id"];
-		
-		
-			$nimi = mysqli_real_escape_string($connection, $_POST["nimi"]);
-			$puur = mysqli_real_escape_string($connection, $_POST["puur"]);
-			$vaartus=[
-			"nimi" => $nimi,
-			"puur" => $puur,
-
-					];
-			
-			$sql = "UPDATE polina1311_loomaaed SET nimi=$nimi', puur='$puur'WHERE id='$vaartus1'";
-			$result = mysqli_query($connection, $sql);
-			$rida=mysqli_affected_rows($connection);
-			
-			if ($rida){
+	if ($_SESSION['roll'] == 'admin') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			if($_POST["id"] == ''){
+				header("Location: ?page=halda");
+				}else{
+					$muutuja = hangi_user($_POST["id"]);
 				
-					header("Location: ?page=loomad");
-				}else {
-					header("Location: ?page=pealeht");
+					$eraldi_id = $_POST["id"];
 					
-				}
-			}
-		}
-	
+					$nimi = mysqli_real_escape_string ($connection, $_POST["nimi"]);
+					$auto = mysqli_real_escape_string ($connection, $_POST["auto"]);
+					$date = mysqli_real_escape_string ($connection, $_POST["date"]);
+					$time = mysqli_real_escape_string($connection, $_POST['aeg']);
+					
+					$muutuja = [
+						"nimi" => $nimi,
+						"auto" => $auto,
+						"date" => $date,
+						"aeg" => $time,
+						
+						
+					];
+					$sql = "UPDATE ppopova_kliendid SET kliendi_nimi='$nimi', autonumber='$auto',aeg='$time', date='$date' WHERE id='$eraldi_id'";
+					$result = mysqli_query($connection, $sql);
+					$rida = mysqli_affected_rows($connection);
+					if($rida){
+						header("Location: ?page=halda");
+					}else{
+						header("Location: ?page=pealeht");
+					}
 }
-else{
-	
-	
-	header("Location: ?page=loomad");
-	
 }
+}else{
+	header("Location: ?page=halda");
+ }
+}
+include_once('views/editvorm.html');
+
 }
 
-include_once ("views/editvorm.html");
-}
+		
+	
+
+
+        
+	
+       
+	
 function upload($name){
 
 		$allowedExts = array("jpg", "jpeg", "gif", "png");

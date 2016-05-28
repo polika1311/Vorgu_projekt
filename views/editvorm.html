@@ -1,12 +1,42 @@
+<div id ="wrap">
 <form action="?page=muuda" method="POST" enctype="multipart/form-data">
-<input type="hidden" name="id" value="<?php if (isset($_GET['id'])) echo htmlspecialchars($_GET['id']); ?>"/><br>
-	<input type="text" name="nimi" placeholder="nimi" value="<?php if (isset($loom['nimi'])) echo htmlspecialchars($loom['nimi']); ?>"/><br/>
-	<input type="number" name="puur" placeholder="puur" value="<?php if (isset($loom['puur'])) echo htmlspecialchars($loom['puur']); ?>"/><br/>
-	Näopilt: <input type="file" name="liik"/><br/>
-	<input type="submit" value="Muuda"/> 
-</form>
-<?php if (isset($errors)):?>
-		<?php foreach($errors as $error):?>
-			<div style="color:red;"><?php echo htmlspecialchars($error); ?></div>
-		<?php endforeach;?>
-	<?php endif;?>
+<div id="wrap">
+		<h4>Broneeringute muutmine</h4>
+	
+		 <input type="hidden" name="id" value="<?php if (isset($_GET['id'])) echo htmlspecialchars($_GET['id']); ?>"/><br>
+	<input type="text" name="nimi" placeholder="Kliendi nimi" value="<?php if (isset($user['nimi'])) echo htmlspecialchars($user['nimi']); ?>"/><br/>
+<input type="text" name="auto" placeholder="Autonumber" value="<?php if (isset($user['auto'])) echo htmlspecialchars($user['auto']); ?>"/><br/>
+
+		Teenused:<br/>
+		<label><input type ="radio" name="teenus" value="käsipesu" <?php if (!empty($_POST["teenus"]) && $_POST ["teenus"]=="käsipesu")
+		echo "checked"; ?>/> Käsipesu </label>
+	 <label><input type ="radio" name="teenus" value="salong" <?php if (!empty($_POST["teenus"]) && $_POST ["teenus"]=="salong")
+		echo "checked"; ?>/> Salongi puhastus </label>
+		 <label><input type ="radio" name="teenus" value="keemia" <?php if (!empty($_POST["teenus"]) && $_POST ["teenus"]=="keemia")
+		echo "checked"; ?>/> Keemiline puhastus </label>
+ <label><input type ="radio" name="teenus" value="vaha" <?php if (!empty($_POST["teenus"]) && $_POST ["teenus"]=="vaha")
+		echo "checked"; ?>/> Vahatamine </label>
+		Kuupäev:
+	     <input type="date" name="date" placeholder="Kuupäev" min="2016-06-01" max="2016-07-01" value="<?php if (isset($user['date'])) echo htmlspecialchars($user['date']); ?>"/><br/>
+
+
+	    Sobiv aeg:
+		<select name="aeg">
+    		<option value="10.00-11.00">10.00-11.00<value= "<?php if (isset($user['aeg'])) echo htmlspecialchars($user['aeg']); ?>"/></option><br/>
+		<option value="11.00-12.00">11.00-12.00<value= "<?php if (isset($user['aeg'])) echo htmlspecialchars($user['aeg']); ?>"/></option><br/>
+		<option value="12.00-13.00">12.00-13.00<value= "<?php if (isset($user['aeg'])) echo htmlspecialchars($user['aeg']); ?>"/></option><br/>
+		<option value="13.00-14.00">13.00-14.00<value= "<?php if (isset($user['aeg'])) echo htmlspecialchars($user['aeg']); ?>"/></option><br/>
+		<option value="14.00-15.00">14.00-15.00<value= "<?php if (isset($user['aeg'])) echo htmlspecialchars($user['aeg']); ?>"/></option><br/>
+		<option value="15.00-16.00">15.00-16.00<value= "<?php if (isset($user['aeg'])) echo htmlspecialchars($user['aeg']); ?>"/></option><br/>
+		</select>
+		
+		<br/>
+		
+			
+	<input type="submit"  value="Muuda broneeringut"/>
+	</form>
+
+	
+	
+		</div>
+	
