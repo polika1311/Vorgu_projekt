@@ -106,9 +106,6 @@ function kuva_all(){
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
 	    $kliendid []=$row;
-	    
-
-        echo "Auto: " . $row["date"]. " - Name: " . $row["kliendi_nimi"]. " " . $row["pesu"]. "<br>";
     
     }
     
@@ -147,8 +144,8 @@ function logi(){
 			
 			if (empty($errors)) {
 				global $connection;
-			$kasutaja = mysqli_real_escape_string($connection,($_POST['user']));
-			$parool = mysqli_real_escape_string($connection, ($_POST['pass']));
+			$kasutaja = mysqli_real_escape_string($connection,( $_POST['user']));
+			$parool = mysqli_real_escape_string($connection, ( $_POST['pass']));
 		
 				//$parool = sha1($parool);
 				$query = "SELECT roll FROM ppopova_kylastajad WHERE username = '$kasutaja' and passw= SHA1('$parool')";
@@ -174,7 +171,7 @@ function logi(){
 	
 }
 	include_once('views/login.html');
-	echo "Vale parool või kasutajatunnus";
+
 }
 
 function logout(){
@@ -210,13 +207,13 @@ function lisa(){
 		}
 		if (empty($errors)) {
 			global $connection;
-			$nimi = mysqli_real_escape_string($connection, $_POST['nimi']);
-			$auto = mysqli_real_escape_string($connection, $_POST['auto']);
+			$nimi = mysqli_real_escape_string($connection,$_POST['nimi']);
+			$auto = mysqli_real_escape_string($connection,$_POST['auto']);
 			$email = mysqli_real_escape_string($connection, $_POST['email']);
-			$teenus = mysqli_real_escape_string($connection, $_POST['teenus']);
-			$date = mysqli_real_escape_string($connection, $_POST['date']);
-			$time = mysqli_real_escape_string($connection, $_POST['aeg']);
-			$comment = mysqli_real_escape_string($connection, $_POST['comment']);
+			$teenus = mysqli_real_escape_string($connection,$_POST['teenus']);
+			$date = mysqli_real_escape_string($connection,  $_POST['date']);
+			$time = mysqli_real_escape_string($connection,  $_POST['aeg']);
+			$comment = mysqli_real_escape_string($connection,  $_POST['comment']);
 			
 			$sql = "INSERT INTO ppopova_kliendid (kliendi_nimi, autonumber, email, pesu, date, aeg, comment) VALUES ('$nimi', '$auto', '$email','$teenus',
 			 '$date', '$time','$comment')";
@@ -256,20 +253,17 @@ function muuda(){
 				
 					$eraldi_id = $_POST["id"];
 					
-					$nimi = mysqli_real_escape_string ($connection, $_POST["nimi"]);
-					$auto = mysqli_real_escape_string ($connection, $_POST["auto"]);
-					$date = mysqli_real_escape_string ($connection, $_POST["date"]);
+					
+					$date = mysqli_real_escape_string ($connection,  $_POST["date"]);
 					$time = mysqli_real_escape_string($connection, $_POST['aeg']);
 					
 					$muutuja = [
-						"nimi" => $nimi,
-						"auto" => $auto,
 						"date" => $date,
 						"aeg" => $time,
 						
 						
 					];
-					$sql = "UPDATE ppopova_kliendid SET kliendi_nimi='$nimi', autonumber='$auto',aeg='$time', date='$date' WHERE id='$eraldi_id'";
+					$sql = "UPDATE ppopova_kliendid SET aeg='$time', date='$date' WHERE id='$eraldi_id'";
 					$result = mysqli_query($connection, $sql);
 					$rida = mysqli_affected_rows($connection);
 					if($rida){
@@ -286,43 +280,4 @@ function muuda(){
 include_once('views/editvorm.html');
 
 }
-
-		
-	
-
-
-        
-	
-       
-	
-function upload($name){
-
-		$allowedExts = array("jpg", "jpeg", "gif", "png");
-	$allowedTypes = array("image/gif", "image/jpeg", "image/png","image/pjpeg");
-	$extension = end(explode(".", $_FILES[$name]["name"]));
-
-	if ( in_array($_FILES[$name]["type"], $allowedTypes)
-		&& ($_FILES[$name]["size"] < 100000)
-		&& in_array($extension, $allowedExts)) {
-    // fail õiget tüüpi ja suurusega
-		if ($_FILES[$name]["error"] > 0) {
-			$_SESSION['notices'][]= "Return Code: " . $_FILES[$name]["error"];
-			return "";
-		} else {
-      // vigu ei ole
-			if (file_exists("pildid/" . $_FILES[$name]["name"])) {
-        // fail olemas ära uuesti lae, tagasta failinimi
-				$_SESSION['notices'][]= $_FILES[$name]["name"] . " juba eksisteerib. ";
-				return "pildid/" .$_FILES[$name]["name"];
-			} else {
-        // kõik ok, aseta pilt
-				move_uploaded_file($_FILES[$name]["tmp_name"], "pildid/" . $_FILES[$name]["name"]);
-				return "pildid/" .$_FILES[$name]["name"];
-			}
-		}
-	} else {
-		return "";
-	}
-}
-
 ?>

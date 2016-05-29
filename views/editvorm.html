@@ -1,26 +1,14 @@
-<div id ="wrap">
+ï»¿<div id ="wrap">
 <form action="?page=muuda" method="POST" enctype="multipart/form-data">
 <div id="wrap">
-		<h4>Broneeringute muutmine</h4>
+		<h4>Admini Ãµigustega isik saab muuta kliendi id abil kuupÃ¤eva ja aega. NÃ¤iteks kui nÃ¤eb et kaks ja rohkem inimest soovivad sama kuupÃ¤eva ja sama aega </h4>
 	
-		 <input type="hidden" name="id" value="<?php if (isset($_GET['id'])) echo htmlspecialchars($_GET['id']); ?>"/><br>
-	<input type="text" name="nimi" placeholder="Kliendi nimi" value="<?php if (isset($user['nimi'])) echo htmlspecialchars($user['nimi']); ?>"/><br/>
-<input type="text" name="auto" placeholder="Autonumber" value="<?php if (isset($user['auto'])) echo htmlspecialchars($user['auto']); ?>"/><br/>
-
-		Teenused:<br/>
-		<label><input type ="radio" name="teenus" value="käsipesu" <?php if (!empty($_POST["teenus"]) && $_POST ["teenus"]=="käsipesu")
-		echo "checked"; ?>/> Käsipesu </label>
-	 <label><input type ="radio" name="teenus" value="salong" <?php if (!empty($_POST["teenus"]) && $_POST ["teenus"]=="salong")
-		echo "checked"; ?>/> Salongi puhastus </label>
-		 <label><input type ="radio" name="teenus" value="keemia" <?php if (!empty($_POST["teenus"]) && $_POST ["teenus"]=="keemia")
-		echo "checked"; ?>/> Keemiline puhastus </label>
- <label><input type ="radio" name="teenus" value="vaha" <?php if (!empty($_POST["teenus"]) && $_POST ["teenus"]=="vaha")
-		echo "checked"; ?>/> Vahatamine </label>
-		Kuupäev:
-	     <input type="date" name="date" placeholder="Kuupäev" min="2016-06-01" max="2016-07-01" value="<?php if (isset($user['date'])) echo htmlspecialchars($user['date']); ?>"/><br/>
+<input type="hidden" name="id" value="<?php if (isset($_GET['id'])) echo htmlspecialchars($_GET['id']); ?>"/><br>
+		Muuda bronneringu kuup?eva:
+	     <input type="date" name="date" placeholder="KuupÃ¤ev" min="2016-06-01" max="2016-07-01" value="<?php if (isset($user['date'])) echo htmlspecialchars($user['date']); ?>"/><br/>
 
 
-	    Sobiv aeg:
+	    Muuda valitud aeg:
 		<select name="aeg">
     		<option value="10.00-11.00">10.00-11.00<value= "<?php if (isset($user['aeg'])) echo htmlspecialchars($user['aeg']); ?>"/></option><br/>
 		<option value="11.00-12.00">11.00-12.00<value= "<?php if (isset($user['aeg'])) echo htmlspecialchars($user['aeg']); ?>"/></option><br/>
