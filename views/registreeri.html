@@ -1,6 +1,6 @@
 <div id="wrap">
 	<form action="?page=registreeri" method="POST" >
-		<input type="text" name="user" placeholder="kasutajanimi"/><br/>
+		<input type="text" name="user" placeholder="kasutajanimi" value="<?php if (!empty($_POST['username'])) echo htmlspecialchars($_POST['username']);?>"/><br/>
 		<input type="password" name="passw" placeholder="parool"/><br/>
 		<input type="password" name="passw2" placeholder="parool teine kord"/><br/>
 		<input type="submit" value="Registreeri"/>
