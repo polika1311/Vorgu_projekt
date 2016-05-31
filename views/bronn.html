@@ -19,7 +19,7 @@ echo "value =\" ".htmlspecialchars($_POST["email"])."\" "; ?> /><br/>
  <label><input type ="radio" name="teenus" value="vaha" <?php if (!empty($_POST["teenus"]) && $_POST ["teenus"]=="vaha")
 		echo "checked"; ?>/> Vahatamine </label>
 		Kuupäev:
-	     <input type="date" name="date" placeholder="Kuupäev" min="2016-06-01" max="2016-07-01"><?php if (!empty($_POST["date"]))
+	     <input type="date" name="date" placeholder="aasta-kuu-päev" min="2016-06-01" max="2016-07-01"><?php if (!empty($_POST["date"]))
 echo "value =\" ".htmlspecialchars($_POST["date"])."\" "; ?><br>
 
 

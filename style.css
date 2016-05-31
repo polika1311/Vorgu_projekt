@@ -2,7 +2,6 @@ body {
 	margin: 0px;
 	background: white;
 }
-
 #header, #wrap{
 	width: 800px;
 	text-align: center;
@@ -10,6 +9,8 @@ body {
 	line-height:2;
 	padding:2px;
 }
+
+
 
   #menu li {
   list-style-type:none;

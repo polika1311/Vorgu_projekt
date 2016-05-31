@@ -4,8 +4,8 @@
 		<h4>Admini õigustega isik saab muuta kliendi id abil kuupäeva ja aega. Näiteks kui näeb et kaks ja rohkem inimest soovivad sama kuupäeva ja sama aega </h4>
 	
 <input type="hidden" name="id" value="<?php if (isset($_GET['id'])) echo htmlspecialchars($_GET['id']); ?>"/><br>
-		Muuda bronneringu kuup?eva:
-	     <input type="date" name="date" placeholder="Kuupäev" min="2016-06-01" max="2016-07-01" value="<?php if (isset($user['date'])) echo htmlspecialchars($user['date']); ?>"/><br/>
+		Muuda bronneringu kuupäeva:
+	     <input type="date" name="date" placeholder="aasta-kuu-päev" min="2016-06-01" max="2016-07-01" value="<?php if (isset($user['date'])) echo htmlspecialchars($user['date']); ?>"/><br/>
 
 
 	    Muuda valitud aeg:

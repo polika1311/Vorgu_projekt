@@ -200,7 +200,7 @@ function lisa(){
 			$errors[] = "Palun sisetage oma e-mail!";
 		}
 		if (empty($_POST['date'])) {
-			$errors[] = "Palun valige sobiva kuupäeva";
+			$errors[] = "Palun valige sobiva kuupäeva alates 01.06.2016 kuni 01.07.2016 ";
 		}
 		if (empty($_POST['teenus'])) {
 			$errors[] = "Palun valige teenus";
